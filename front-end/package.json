@@ -1,0 +1,38 @@
+{
+  "name": "rtsupport",
+  "version": "1.0.0",
+  "description": "Simple Realtime Web App like Slack using Go, React and RethinkDB to study these technologies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "react": "^0.14.2",
+    "react-dom": "^0.14.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WendellAdriel/go-react-realtime-app.git"
+  },
+  "keywords": [
+    "go",
+    "react",
+    "rethinkdb",
+    "realtime"
+  ],
+  "author": "Wendell Adriel <wendelladriel.ti@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WendellAdriel/go-react-realtime-app/issues"
+  },
+  "homepage": "https://github.com/WendellAdriel/go-react-realtime-app#readme",
+  "devDependencies": {
+    "babel-loader": "^5.3.3",
+    "eslint": "^3.6.1",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx-a11y": "^2.2.2",
+    "eslint-plugin-react": "^6.3.0",
+    "webpack": "^1.13.2"
+  }
+}
