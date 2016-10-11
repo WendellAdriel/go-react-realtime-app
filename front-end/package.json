@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/WendellAdriel/go-react-realtime-app#readme",
   "dependencies": {
+    "fecha": "^2.3.0",
     "react": "^0.14.2",
     "react-dom": "^0.14.2"
   },
