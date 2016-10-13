@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 class MessageForm extends Component {
-  onSubmit (e) {
+  onSubmit = (e) => {
     e.preventDefault();
     const node = this.refs.message;
     const message = node.value;
@@ -20,7 +20,7 @@ class MessageForm extends Component {
       )
     }
     return (
-      <form onSubmit={this.onSubmit.bind(this)}>
+      <form onSubmit={this.onSubmit}>
         <div className="form-group">
           {input}
         </div>

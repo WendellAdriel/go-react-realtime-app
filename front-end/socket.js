@@ -5,9 +5,9 @@ class Socket {
     this.ws = ws;
     this.ee = ee;
 
-    ws.onopen = this.open.bind(this);
-    ws.onmessage = this.message.bind(this);
-    ws.onclose = this.close.bind(this);
+    ws.onopen = this.open;
+    ws.onmessage = this.message;
+    ws.onclose = this.close;
   }
 
   on (name, fn) {
@@ -23,11 +23,11 @@ class Socket {
     this.ws.send(message);
   }
 
-  open () {
+  open = () => {
     this.ee.emit('connect');
   }
 
-  message (e) {
+  message = (e) => {
     try {
       const message = JSON.parse(e.data);
       this.ee.emit(message.name, message.data);
@@ -36,7 +36,7 @@ class Socket {
     }
   }
 
-  close () {
+  close = () => {
     this.ee.emit('disconnect');
   }
 }

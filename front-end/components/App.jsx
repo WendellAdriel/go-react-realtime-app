@@ -15,54 +15,54 @@ class App extends Component {
       connected: false
     };
   }
-  setChannel (activeChannel) {
+  componentDidMount () {
+    let socket = this.socket = new Socket();
+    socket.on('connect', this.onConnect);
+    socket.on('disconnect', this.onDisconnect);
+    socket.on('channel add', this.onAddChannel);
+    socket.on('user add', this.onAddUser);
+    socket.on('user edit', this.onEditUser);
+    socket.on('user remove', this.onRemoveUser);
+    socket.on('message add', this.onMessageAdd);
+  }
+  addChannel = (name) => {
+    this.socket.emit('channel add', {name});
+  }
+  setChannel = (activeChannel) => {
     this.setState({activeChannel});
     this.socket.emit('message unsubscribe');
     this.setState({messages: []});
     this.socket.emit('message subscribe', {channelId: activeChannel.id});
   }
-  componentDidMount () {
-    let socket = this.socket = new Socket();
-    socket.on('connect', this.onConnect.bind(this));
-    socket.on('disconnect', this.onDisconnect.bind(this));
-    socket.on('channel add', this.onAddChannel.bind(this));
-    socket.on('user add', this.onAddUser.bind(this));
-    socket.on('user edit', this.onEditUser.bind(this));
-    socket.on('user remove', this.onRemoveUser.bind(this));
-    socket.on('message add', this.onMessageAdd.bind(this));
-  }
-  onConnect () {
-    this.setState({connected: true});
-    this.socket.emit('channel subscribe');
-    this.socket.emit('user subscribe');
-  }
-  onDisconnect () {
-    this.setState({connected: false});
-  }
-  addChannel (name) {
-    this.socket.emit('channel add', {name});
-  }
-  setUserName (name) {
+  setUserName = (name) => {
     this.socket.emit('user edit', {name});
   }
-  addMessage (body) {
+  addMessage = (body) => {
     let {activeChannel} = this.state;
     this.socket.emit('message add', {
       channelId: activeChannel.id,
       body
     });
   }
-  onAddChannel (channel) {
+  onConnect = () => {
+    this.setState({connected: true});
+    this.socket.emit('channel subscribe');
+    this.socket.emit('user subscribe');
+  }
+  onDisconnect = () => {
+    this.setState({connected: false});
+  }
+  onAddChannel = (channel) => {
     let {channels} = this.state;
     channels.push(channel);
     this.setState({channels});
   }
-  onAddUser (user) {
+  onAddUser = (user) => {
     let {users} = this.state;
     users.push(user);
     this.setState({users});
   }
-  onEditUser (editUser) {
+  onEditUser = (editUser) => {
     let {users} = this.state;
     users = users.map(user => {
       if (ediUser.id === user.id) {
@@ -72,14 +72,14 @@ class App extends Component {
     });
     this.setState({users});
   }
-  onRemoveUser (removeUser) {
+  onRemoveUser = (removeUser) => {
     let {users} = this.state;
     users = users.filter(user => {
       return user.id !== removeUser.id;
     });
     this.setState({users});
   }
-  onMessageAdd (message) {
+  onMessageAdd = (message) => {
     let {messages} = this.state;
     messages.push(message);
     this.setState({messages});
@@ -90,17 +90,17 @@ class App extends Component {
         <div className="nav">
           <ChannelSection
             {...this.state}
-            addChannel={this.addChannel.bind(this)}
-            setChannel={this.setChannel.bind(this)}
+            addChannel={this.addChannel}
+            setChannel={this.setChannel}
           />
           <UserSection
             {...this.state}
-            setUserName={this.setUserName.bind(this)}
+            setUserName={this.setUserName}
           />
         </div>
         <MessageSection
           {...this.state}
-          addMessage={this.addMessage.bind(this)}
+          addMessage={this.addMessage}
         />
       </div>
     )

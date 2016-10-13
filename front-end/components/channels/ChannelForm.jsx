@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 class ChannelForm extends Component {
-  onSubmit (e) {
+  onSubmit = (e) => {
     e.preventDefault();
     const node = this.refs.channel;
     const channelName = node.value;
@@ -10,7 +10,7 @@ class ChannelForm extends Component {
   }
   render () {
     return (
-      <form onSubmit={this.onSubmit.bind(this)}>
+      <form onSubmit={this.onSubmit}>
         <div className="form-group">
           <input
             className="form-control"
